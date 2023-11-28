@@ -16,7 +16,7 @@ const Page = async () => {
         <label htmlFor="password">Password</label>
         <input type="password" name="password" id="password" />
         <br />
-        <input type="submit" />
+        <input type="submit" value="Login" />
       </Form>
       <Link href="/signup">Create an account</Link>
     </>
