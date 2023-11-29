@@ -17,7 +17,7 @@ export const POST = async (request: NextRequest) => {
   if (!result.success) {
     return NextResponse.json(
       {
-        error: "Invalid username or password",
+        error: result.error.message,
       },
       {
         status: 400,
