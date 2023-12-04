@@ -27,3 +27,8 @@ export const getPageSession = cache(() => {
   const authRequest = auth.handleRequest("GET", context);
   return authRequest.validate();
 });
+
+export const getAppSession = cache(() => {
+  const authRequest = auth.handleRequest("GET", context);
+  return authRequest.validateBearerToken();
+});
