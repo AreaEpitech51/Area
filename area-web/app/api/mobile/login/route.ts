@@ -1,19 +1,14 @@
 import { auth } from "@/auth/lucia";
 import { usernameSchema } from "@/auth/schema";
-import * as context from "next/headers";
 import { NextResponse } from "next/server";
 import { LuciaError } from "lucia";
+import * as context from "next/headers";
 
 import type { NextRequest } from "next/server";
 
 export const POST = async (request: NextRequest) => {
-  const formData = await request.formData();
-  const user_name = formData.get("username");
-  const pass_word = formData.get("password");
-  const result = usernameSchema.safeParse({
-    username: user_name,
-    password: pass_word,
-  });
+  const data = await request.json();
+  const result = usernameSchema.safeParse(data);
   if (!result.success) {
     return NextResponse.json(
       {
@@ -26,8 +21,6 @@ export const POST = async (request: NextRequest) => {
   }
   const { username, password } = result.data;
   try {
-    // find user by key
-    // and validate password
     const key = await auth.useKey("username", username.toLowerCase(), password);
     const session = await auth.createSession({
       userId: key.userId,
@@ -35,12 +28,15 @@ export const POST = async (request: NextRequest) => {
     });
     const authRequest = auth.handleRequest(request.method, context);
     authRequest.setSession(session);
-    return new NextResponse(null, {
-      status: 302,
-      headers: {
-        Location: "/", // redirect to profile page
+    const { sessionId } = session;
+    return NextResponse.json(
+      {
+        sessionId,
       },
-    });
+      {
+        status: 200,
+      }
+    );
   } catch (e) {
     if (
       e instanceof LuciaError &&
@@ -57,13 +53,5 @@ export const POST = async (request: NextRequest) => {
         }
       );
     }
-    return NextResponse.json(
-      {
-        error: "An unknown error occurred",
-      },
-      {
-        status: 500,
-      }
-    );
   }
 };

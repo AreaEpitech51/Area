@@ -20,6 +20,10 @@
             <input type="submit" value="Login" />
           </Form>
           <Link href="/signup">Create an account</Link>
+          <br />
+          <a href="/api/login/github">Sign in with GitHub</a>
+          <br />
+          <a href="/api/login/microsoft">Sign in with Microsoft</a>
         </div>
       </body>
     );
