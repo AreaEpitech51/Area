@@ -1,16 +1,15 @@
 services:
+
   server:
     build: ./server
     ports:
       - "8080:8080"
-    volumes:
-      - ./server:/usr/src/app
     command: npm run start
 
   client_mobile:
     build: ./client_mobile
     volumes:
-      - ./client_mobile:/usr/src/app
+      - common_volume.yaml
     command: npm run start
 
   client_web:
@@ -18,7 +17,7 @@ services:
     ports:
       - "8081:8081"
     volumes:
-      - ./client_web:/usr/src/app
+      - common_volume.yaml
     command: npm run start
     depends_on:
       - server
