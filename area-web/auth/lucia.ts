@@ -4,6 +4,7 @@ import { prisma } from "@lucia-auth/adapter-prisma";
 import { PrismaClient } from "@prisma/client";
 import { cache } from "react";
 import * as context from "next/headers";
+import { azureAD, github } from "@lucia-auth/oauth/providers";
 
 const client = new PrismaClient();
 
@@ -21,9 +22,26 @@ export const auth = lucia({
   },
 });
 
+export const githubAuth = github(auth, {
+  clientId: process.env.GITHUB_CLIENT_ID ?? "",
+  clientSecret: process.env.GITHUB_CLIENT_SECRET ?? "",
+});
+
+export const microsoftAuth = azureAD(auth, {
+  clientId: process.env.AZURE_CLIENT_ID ?? "",
+  clientSecret: process.env.AZURE_CLIENT_SECRET ?? "",
+  tenant: process.env.AZURE_TENANT_ID ?? "",
+  redirectUri: process.env.AZURE_REDIRECT_URI ?? "",
+});
+
 export type Auth = typeof auth;
 
 export const getPageSession = cache(() => {
   const authRequest = auth.handleRequest("GET", context);
   return authRequest.validate();
+});
+
+export const getAppSession = cache(() => {
+  const authRequest = auth.handleRequest("GET", context);
+  return authRequest.validateBearerToken();
 });
