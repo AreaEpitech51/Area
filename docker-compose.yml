@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  server:
+    build: ./temp
+    ports:
+      - "8080:8080"
+
+  client_mobile:
+    build: ./temp
+    volumes:
+      - shared-volume:/app
+
+  client_web:
+    build:
+      context: ./area-web
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - server
+      - client_mobile
+    volumes:
+      - shared-volume:/app
+
+volumes:
+  shared-volume:
