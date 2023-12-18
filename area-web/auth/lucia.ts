@@ -8,7 +8,7 @@ import { azureAD, github } from "@lucia-auth/oauth/providers";
 
 const client = new PrismaClient();
 
-export const auth = lucia({
+export const auth = lucia ({
   env: "DEV",
   middleware: nextjs_future(),
   sessionCookie: {
@@ -32,6 +32,13 @@ export const microsoftAuth = azureAD(auth, {
   clientSecret: process.env.AZURE_CLIENT_SECRET ?? "",
   tenant: process.env.AZURE_TENANT_ID ?? "",
   redirectUri: process.env.AZURE_REDIRECT_URI ?? "",
+});
+
+export const googleAuth = azureAD(auth, {
+  clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+  tenant: process.env.GOOGLE_TENANT_ID ?? "",
+  redirectUri: process.env.GOOGLE_REDIRECT_URI ?? "",
 });
 
 export type Auth = typeof auth;

@@ -14,6 +14,7 @@ const Page = async () => {
       <Form action="/api/logout">
         <input type="submit" value="Sign out" />
       </Form>
+      <a href="/api/token/google">Google</a>
     </body>
   );
 };
