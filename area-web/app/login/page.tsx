@@ -14,7 +14,7 @@ const LoginPage = async () => {
     <body style={styles.page}>
       <div style={styles.container}>
         <div style={styles.whiteBox}>
-          <h1 style={styles.title}>J'ai un compte Area</h1>
+          <h1 style={styles.title}>J&apos;ai un compte Area</h1>
           <div style={styles.socialButtonContainer}>
             <a href="/api/login/github" style={styles.socialButton}>
               <Image src={GithubLogo} alt="GitHub" style={styles.socialIcon} />
@@ -35,7 +35,7 @@ const LoginPage = async () => {
             <br />
             <br />
             <div style={styles.usernameContainer}>
-              <label style={styles.label}>Nom d'utilisateur</label>
+              <label style={styles.label}>Nom d&apos;utilisateur</label>
               <input
                 name="username"
                 id="username"
@@ -54,14 +54,18 @@ const LoginPage = async () => {
               />
             </div>
             <div style={styles.buttonContainer}>
-              <input type="submit" value="Se connecter" style={styles.submitButton} />
+              <input
+                type="submit"
+                value="Se connecter"
+                style={styles.submitButton}
+              />
             </div>
           </Form>
           <br />
           <div style={styles.sepbar}></div>
           <br />
           <p>
-            Vous n'avez pas de compte ?{" "}
+            Vous n&apos;avez pas de compte ?{" "}
             <Link href="/signup">Créer un compte</Link>
           </p>
         </div>
