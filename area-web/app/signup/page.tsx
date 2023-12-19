@@ -7,18 +7,19 @@ const Page = async () => {
   const session = await getPageSession();
   if (session) redirect("/");
   return (
-
     <body style={styles.page}>
       <div style={styles.container}>
         <div style={styles.whiteBox}>
-          <h1 style={styles.title}>Je n'ai pas de compte Area</h1>
+          <h1 style={styles.title}>Je n&apos;ai pas de compte Area</h1>
           <br />
           <div style={styles.sepbar}></div>
           <Form action="/api/signup">
             <br />
             <br />
             <div style={styles.usernameContainer}>
-              <label style={styles.label} htmlFor="username">Nom d'utilisateur</label>
+              <label style={styles.label} htmlFor="username">
+                Nom d&apos;utilisateur
+              </label>
               <input
                 name="username"
                 id="username"
@@ -27,7 +28,9 @@ const Page = async () => {
               />
             </div>
             <div style={styles.passwordContainer}>
-              <label style={styles.label} htmlFor="password">Mot de passe</label>
+              <label style={styles.label} htmlFor="password">
+                Mot de passe
+              </label>
               <input
                 type="password"
                 name="password"
@@ -44,8 +47,7 @@ const Page = async () => {
           <div style={styles.sepbar}></div>
           <br />
           <p>
-            Vous avez déjà un compte ?{" "}
-            <Link href="/login">Connectez vous</Link>
+            Vous avez déjà un compte ? <Link href="/login">Connectez vous</Link>
           </p>
         </div>
       </div>

@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  server:
+    build: ./temp_needed_for_docker_compose
+    ports:
+      - "8080:8080"
+
+  client_mobile:
+    build: ./temp_needed_for_docker_compose
+    volumes:
+      - shared-volume:/app
+
+  client_web:
+    build:
+      context: ./area-web
+      dockerfile: Dockerfile
+    ports:
+      - "8081:3000"
+    depends_on:
+      - server
+      - client_mobile
+    volumes:
+      - shared-volume:/app
+
+volumes:
+  shared-volume:
