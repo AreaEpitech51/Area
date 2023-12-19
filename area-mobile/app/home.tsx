@@ -1,5 +1,10 @@
 import React from "react";
-import { ScrollView, View, Text, StyleSheet, Image } from "react-native";
+import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Link } from "expo-router";
+
+function navigate() {
+  
+}
 
 const Home = () => {
   const renderGrid = () => {
@@ -25,12 +30,12 @@ const Home = () => {
           : defaultIcon;
 
         rowItems.push(
-          <View key={j} style={styles.col}>
+          <TouchableOpacity key={j} style={styles.col}>
             <Image
               source={images[iconName]}
               style={styles.image}
             />
-          </View>
+          </TouchableOpacity>
         );
         case_number += 1;
       }
@@ -46,8 +51,9 @@ const Home = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+
       <Text style={styles.title}>Area</Text>
-      {renderGrid()}
+          {renderGrid()}
     </ScrollView>
   );
 };
