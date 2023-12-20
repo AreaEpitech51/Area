@@ -3,8 +3,6 @@ version: '3'
 services:
   server:
     build: ./temp_needed_for_docker_compose
-    ports:
-      - "8080:8080"
 
   client_mobile:
     build:
