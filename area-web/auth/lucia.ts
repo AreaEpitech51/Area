@@ -4,7 +4,7 @@ import { prisma } from "@lucia-auth/adapter-prisma";
 import { PrismaClient } from "@prisma/client";
 import { cache } from "react";
 import * as context from "next/headers";
-import { azureAD, github } from "@lucia-auth/oauth/providers";
+import { azureAD, github, google } from "@lucia-auth/oauth/providers";
 
 const client = new PrismaClient();
 
@@ -32,6 +32,14 @@ export const microsoftAuth = azureAD(auth, {
   clientSecret: process.env.AZURE_CLIENT_SECRET ?? "",
   tenant: process.env.AZURE_TENANT_ID ?? "",
   redirectUri: process.env.AZURE_REDIRECT_URI ?? "",
+});
+
+export const googleAuth = google(auth, {
+  clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+  redirectUri: process.env.GOOGLE_REDIRECT_URI ?? "",
+  accessType: "offline",
+  scope: ["email", "profile"],
 });
 
 export type Auth = typeof auth;
