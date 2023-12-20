@@ -30,12 +30,14 @@ const Home = () => {
           : defaultIcon;
 
         rowItems.push(
-          <TouchableOpacity key={j} style={styles.col}>
-            <Image
-              source={images[iconName]}
-              style={styles.image}
-            />
-          </TouchableOpacity>
+          <Link href="/login" asChild>
+            <TouchableOpacity key={j} style={styles.col}>
+                <Image
+                  source={images[iconName]}
+                  style={styles.image}
+                />
+            </TouchableOpacity>
+          </Link>
         );
         case_number += 1;
       }
