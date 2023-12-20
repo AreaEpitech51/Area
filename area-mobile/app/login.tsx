@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 
 const LoginPage = () => {
     return (
@@ -21,7 +21,11 @@ const LoginPage = () => {
                     <Text style={{color: "#FFF"}}>Mot de passe</Text>
                     <TextInput style={styles.textInput} placeholder="Enter your password" placeholderTextColor={"#777"}></TextInput>
                 </View>
-                <Link href="/home" style={styles.button}>Se connecter</Link>
+                <Link href="/home" asChild>
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={{alignSelf: "center"}}>Se connecter</Text>
+                    </TouchableOpacity>
+                </Link>
                 <View style={styles.line}/>
                 <Text style={{color: "#FFF"}}>Vous n'avez pas encore de compte ? </Text>
                 <Text style={{color: "#1abc54"}}>Créer un compte</Text>
