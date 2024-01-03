@@ -1,9 +1,13 @@
+import { getSession } from "@/auth/lucia";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { redirect } from "next/navigation";
+import { client } from "@/auth/lucia";
 
 import type { NextRequest } from "next/server";
 
 export const GET = async (request: NextRequest) => {
+  const session = await getSession(request);
+  if (!session) return redirect("/");
   const storedState = cookies().get("discord_oauth_state")?.value;
   const url = new URL(request.url);
   const state = url.searchParams.get("state");
@@ -13,7 +17,12 @@ export const GET = async (request: NextRequest) => {
       status: 400,
     });
   }
-  return NextResponse.json({
-    token: code,
+  const userid = session.user.userId;
+  await client.token.create({
+    data: {
+      name: "discord",
+      value: code,
+      user_id: userid,
+    },
   });
 };

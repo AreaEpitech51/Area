@@ -1,9 +1,12 @@
-import { googleAuth } from "@/auth/lucia";
+import { getSession, googleAuth } from "@/auth/lucia";
 import * as context from "next/headers";
+import { redirect } from "next/navigation";
 
 import type { NextRequest } from "next/server";
 
-export const GET = async (_request: NextRequest) => {
+export const GET = async (request: NextRequest) => {
+  const session = await getSession(request);
+  if (!session) redirect("/");
   const [url, state] = await googleAuth.getAuthorizationUrl();
   context.cookies().set("google_oauth_state", state, {
     httpOnly: true,
