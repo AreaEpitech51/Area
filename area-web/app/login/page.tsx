@@ -29,6 +29,7 @@ const LoginPage = async () => {
               Continuer avec Microsoft
             </a>
             <a href="/api/login/google">Get google token</a>
+            <a href="/api/login/discord">Get discord token</a>
           </div>
           <br />
           <div style={styles.sepbar}></div>

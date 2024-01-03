@@ -4,6 +4,7 @@ import { prisma } from "@lucia-auth/adapter-prisma";
 import { PrismaClient } from "@prisma/client";
 import { cache } from "react";
 import * as context from "next/headers";
+import { azureAD, github, google, discord } from "@lucia-auth/oauth/providers";
 import { userAgent } from "next/server";
 import { azureAD, github, google } from "@lucia-auth/oauth/providers";
 
@@ -61,6 +62,13 @@ export const googleAuth = google(auth, {
   redirectUri: process.env.GOOGLE_REDIRECT_URI ?? "",
   accessType: "offline",
   scope: ["email", "profile"],
+});
+
+export const discordAuth = discord(auth, {
+  clientId: process.env.DISCORD_CLIENT_ID ?? "",
+  clientSecret: process.env.DISCORD_CLIENT_SECRET ?? "",
+  redirectUri: process.env.DISCORD_REDIRECT_URI ?? "",
+  scope: ["identify", "email"],
 });
 
 export type Auth = typeof auth;
