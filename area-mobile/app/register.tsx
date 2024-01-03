@@ -1,7 +1,7 @@
 import { Link } from "expo-router";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 
-const LoginPage = () => {
+const Register = () => {
     return (
         <View style={styles.container}>
             <View style={styles.mainBox}>
@@ -21,24 +21,19 @@ const LoginPage = () => {
                     <Text style={{color: "#FFF"}}>Mot de passe</Text>
                     <TextInput style={styles.textInput} placeholder="Enter your password" placeholderTextColor={"#777"}></TextInput>
                 </View>
-                <Link href="/home" asChild>
+                {/* <Link href="/home" asChild>
                     <TouchableOpacity style={styles.button}>
                         <Text style={{alignSelf: "center"}}>Se connecter</Text>
                     </TouchableOpacity>
-                </Link>
+                </Link> */}
                 <View style={styles.line}/>
                 <Text style={{color: "#FFF"}}>Vous n'avez pas encore de compte ? </Text>
-                <Link href="/register" asChild>
-                    <TouchableOpacity>
-                        <Text style={{color: "#1abc54"}}>Créer un compte</Text>
-                    </TouchableOpacity>
-                </Link>
             </View>
         </View>
     );
 }
 
-export default LoginPage;
+export default Register;
 
 const styles = StyleSheet.create({
     container: {
