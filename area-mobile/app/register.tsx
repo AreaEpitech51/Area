@@ -5,29 +5,27 @@ const Register = () => {
     return (
         <View style={styles.container}>
             <View style={styles.mainBox}>
-                <Text style={styles.title}>J'ai un compte Area</Text>
+                <Text style={styles.title}>Créer un compte Area</Text>
                 <View style={styles.easy_log_box}>
-                    <Text style={{ color: "#FFF" }}>🪙 Se connecter avec GitHub</Text>
+                    <Text style={{ color: "#FFF" }}>🪙 Continuer avec GitHub</Text>
                 </View>
                 <View style={styles.easy_log_box}>
-                    <Text style={{ color: "#FFF" }}>🪟 Se connecter avec Microsoft</Text>
+                    <Text style={{ color: "#FFF" }}>🪟 Continuer avec Microsoft</Text>
                 </View>
                 <View style={styles.line}/>
                 <View style={styles.input_zone}>
                     <Text style={{color: "#FFF"}}>Nom d'utilisateur</Text>
-                    <TextInput style={styles.textInput} placeholder="Enter your username" placeholderTextColor={"#777"}></TextInput>
+                    <TextInput style={styles.textInput} placeholder="Entrez votre nom d'utilisateur" placeholderTextColor={"#777"}></TextInput>
                 </View>
                 <View style={styles.input_zone}>
                     <Text style={{color: "#FFF"}}>Mot de passe</Text>
-                    <TextInput style={styles.textInput} placeholder="Enter your password" placeholderTextColor={"#777"}></TextInput>
+                    <TextInput style={styles.textInput} placeholder="Entrez votre mot de passe" placeholderTextColor={"#777"}></TextInput>
                 </View>
-                {/* <Link href="/home" asChild>
+                <Link href="/home" asChild>
                     <TouchableOpacity style={styles.button}>
-                        <Text style={{alignSelf: "center"}}>Se connecter</Text>
+                        <Text style={{alignSelf: "center"}}>Créer un compte</Text>
                     </TouchableOpacity>
-                </Link> */}
-                <View style={styles.line}/>
-                <Text style={{color: "#FFF"}}>Vous n'avez pas encore de compte ? </Text>
+                </Link>
             </View>
         </View>
     );
