@@ -6,8 +6,8 @@ services:
 
   client_mobile:
     build:
-      # context: ./area-mobile
-      context: ./temp_needed_for_docker_compose
+      context: ./area-mobile
+      # context: ./temp_needed_for_docker_compose
       dockerfile: Dockerfile
     ports:
       - "8080:3000"
