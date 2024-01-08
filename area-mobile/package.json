@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "expo": "~49.0.15",
-    "expo-cli": "^6.3.10",
+    "expo-cli": "^6.3.12",
     "expo-constants": "~14.4.2",
     "expo-linking": "~5.0.2",
     "expo-router": "^2.0.0",
