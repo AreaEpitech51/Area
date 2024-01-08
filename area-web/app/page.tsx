@@ -1,5 +1,6 @@
 import { getPageSession } from "@/auth/lucia";
 import { redirect } from "next/navigation";
+import Toggle from "../components/toggle";
 
 import Form from "@/components/form";
 
@@ -10,14 +11,8 @@ const Page = async () => {
   const applications = [
     { name: "App 1", description: "Description for App 1" },
     { name: "App 2", description: "Description for App 2" },
-    { name: "App 1", description: "Description for App 1" },
-    { name: "App 2", description: "Description for App 2" },
-    { name: "App 1", description: "Description for App 1" },
-    { name: "App 2", description: "Description for App 2" },
-    { name: "App 1", description: "Description for App 1" },
-    { name: "App 2", description: "Description for App 2" },
-    { name: "App 1", description: "Description for App 1" },
-    { name: "App 2", description: "Description for App 2" },
+    { name: "App 3", description: "Description for App 3" },
+    // Ajoute d'autres applications avec leurs données
   ];
 
   return (
@@ -30,6 +25,9 @@ const Page = async () => {
           <div key={index} style={styles.appBox}>
             <p style={styles.title}>{app.name}</p>
             <p>{app.description}</p>
+            <div style={styles.buttonContainer}>
+              <Toggle />
+            </div>
           </div>
         ))}
       </div>
@@ -67,12 +65,30 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between", // Permet au bouton d'être en bas
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   },
   title: {
     marginBottom: 10,
     fontWeight: "bold",
+  },
+  buttonContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  onOffButton: {
+    backgroundColor: "#1abc54",
+    color: "black",
+    fontWeight: "bold",
+    width: "80px",
+    height: "30px",
+    fontSize: 12,
+    borderRadius: "20px",
+    border: "none",
+    cursor: "pointer",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   },
 };
 
