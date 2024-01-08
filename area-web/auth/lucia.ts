@@ -4,7 +4,7 @@ import { prisma } from "@lucia-auth/adapter-prisma";
 import { PrismaClient } from "@prisma/client";
 import { cache } from "react";
 import * as context from "next/headers";
-import { azureAD, github, google, discord } from "@lucia-auth/oauth/providers";
+import { azureAD, github, google, discord, spotify } from "@lucia-auth/oauth/providers";
 
 const client = new PrismaClient();
 
@@ -47,6 +47,20 @@ export const discordAuth = discord(auth, {
   clientSecret: process.env.DISCORD_CLIENT_SECRET ?? "",
   redirectUri: process.env.DISCORD_REDIRECT_URI ?? "",
   scope: ["identify", "email"],
+});
+
+export const spotifyAuth = spotify(auth, {
+  clientId: process.env.SPOTIFY_CLIENT_ID ?? "",
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET ?? "",
+  redirectUri: process.env.SPOTIFY_REDIRECT_URI ?? "",
+  scope: ["user-read-email", "user-read-private"],
+});
+
+export const slackAuth = spotify(auth, {
+  clientId: process.env.SPOTIFY_CLIENT_ID ?? "",
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET ?? "",
+  redirectUri: process.env.SPOTIFY_REDIRECT_URI ?? "",
+  scope: ["user-read-email", "user-read-private"],
 });
 
 export type Auth = typeof auth;
