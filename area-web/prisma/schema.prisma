@@ -39,3 +39,18 @@ model Token {
   value   String
   user_id String
 }
+
+model Action {
+  id       String     @id @unique @default(uuid())
+  name     String
+  user_id  String
+  Reaction Reaction[]
+}
+
+model Reaction {
+  id        String @id @unique @default(uuid())
+  name      String
+  action_id String
+  user_id   String
+  action    Action @relation(fields: [action_id], references: [id], onDelete: NoAction)
+}
