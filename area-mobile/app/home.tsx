@@ -26,21 +26,19 @@ const Home = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-
+    <View style={styles.container}>
+    <TouchableOpacity style={styles.buttonAction} onPress={addSquare}>
+      <Text style={{alignSelf: "center"}}>Nouvelle Action</Text>
+    </TouchableOpacity>
+    <ScrollView>
       <Text style={styles.title}>Area</Text>
       {squares.map(square => (
-        <Card key={square.key}>
-          <View style={styles.actionSquare}/>
-        </Card>
+      <View key={square.key}>
+        <View style={styles.actionSquare}/>
+      </View>
       ))}
-      
-      <Link href="/home" asChild>
-        <TouchableOpacity style={styles.buttonAction} onPress={addSquare}>
-          <Text style={{alignSelf: "center"}}>Nouvelle Action</Text>
-        </TouchableOpacity>
-      </Link>
     </ScrollView>
+    </View>
   );
 };
 
@@ -87,13 +85,14 @@ const styles = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
     fontWeight: "bold",
-    marginTop: 730,
     position: "absolute",
+    marginTop: 740,
+    zIndex: 1,
   },
   actionSquare: {
-    margin: 10,
-    padding: 20, 
-    width: 300,
-    height: 100,
+    width: 360,
+    height: 120,
+    backgroundColor: "#3f4847",
+    marginBottom: 20,
   },
 });
