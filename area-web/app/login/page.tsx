@@ -30,6 +30,7 @@ const LoginPage = async () => {
             </a>
             <a href="/api/login/google">Get google token</a>
             <a href="/api/login/discord">Get discord token</a>
+            <a href="/api/login/spotify">Get spotify token</a>
           </div>
           <br />
           <div style={styles.sepbar}></div>
