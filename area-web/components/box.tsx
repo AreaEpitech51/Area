@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Toggle from "../components/toggle";
+import CallActions from "./area";
 
 const SmallWindow = ({
   selectedService,
@@ -12,6 +13,7 @@ const SmallWindow = ({
 }) => {
   const [selectedValue, setSelectedValue] = useState("1");
 
+  
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     setSelectedValue(value);
@@ -307,6 +309,7 @@ const Applications = () => {
 
   return (
     <div style={styles.appContainer}>
+    <CallActions applications={applications}/>
       <div style={styles.plus}>
         <Box setApplications={setApplications} />
       </div>
