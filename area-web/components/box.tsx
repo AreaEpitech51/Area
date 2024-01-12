@@ -1,40 +1,15 @@
-'use client'
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
 
-interface PlusBoxProps {
-  onClick?: () => void;
-}
-
-const PlusBox: React.FC<{ onClick?: () => void }> = ({ onClick }) => {
-  const styles = {
-    appBox: {
-      backgroundColor: "#292929",
-      borderRadius: 8,
-      padding: 20,
-      width: 300,
-      height: 200,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-      cursor: "pointer",
-    },
-    plus: {
-      fontSize: 80,
-      margin: 0,
-      color: "#f0f0f0",
-    },
-  };
-
-  return (
-    <div style={styles.appBox} onClick={onClick}>
-      <p style={styles.plus}>+</p>
-    </div>
-  );
-};
-  const SmallWindow: React.FC<{ onClose: () => void; selectedService: string | null; onSubmit: (value: string) => void }> = ({ onClose, selectedService, onSubmit }) => {
-  const [selectedValue, setSelectedValue] = useState('1');
+const SmallWindow = ({
+  selectedService,
+  onSubmit,
+}: {
+  onClose: () => void;
+  selectedService: string | null;
+  onSubmit: (value: string) => void;
+}) => {
+  const [selectedValue, setSelectedValue] = useState("1");
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -96,7 +71,11 @@ const PlusBox: React.FC<{ onClick?: () => void }> = ({ onClick }) => {
       <form>
         <label style={{ display: "block", marginBottom: 10 }}>
           Choose a Value:
-          <select value={selectedValue} onChange={handleChange} style={styles.select}>
+          <select
+            value={selectedValue}
+            onChange={handleChange}
+            style={styles.select}
+          >
             {getOptions().map((option, index) => (
               <option key={index} value={option}>
                 {option}
@@ -108,10 +87,15 @@ const PlusBox: React.FC<{ onClick?: () => void }> = ({ onClick }) => {
     </div>
   );
 };
-const Box: React.FC = () => {
+
+const Box = () => {
   const [showWindows, setShowWindows] = useState<number>(0);
-  const [selectedServices, setSelectedServices] = useState<Array<string | null>>([null, null]);
-  const [submittedValues, setSubmittedValues] = useState<string[]>(Array.from({ length: 2 }, () => ""));
+  const [selectedServices, setSelectedServices] = useState<
+    Array<string | null>
+  >([null, null]);
+  const [submittedValues, setSubmittedValues] = useState<string[]>(
+    Array.from({ length: 2 }, () => "")
+  );
 
   const handleServiceSelection = (service: string, windowIndex: number) => {
     const updatedServices = [...selectedServices];
@@ -127,10 +111,15 @@ const Box: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Submitted:');
+    console.log("Submitted:");
     selectedServices.forEach((service, index) => {
-      const submitted = submittedValues[index] !== undefined ? submittedValues[index] : '';
-      console.log(`Window ${index + 1} - Service: ${service}, Submitted Value: ${submitted}`);
+      const submitted =
+        submittedValues[index] !== undefined ? submittedValues[index] : "";
+      console.log(
+        `Window ${
+          index + 1
+        } - Service: ${service}, Submitted Value: ${submitted}`
+      );
     });
     handleCloseWindow();
   };
@@ -141,27 +130,79 @@ const Box: React.FC = () => {
     setSubmittedValues(Array.from({ length: 2 }, () => ""));
   };
 
-  const services = ['google', 'discord', 'spotify', 'github', 'microsoft'];
+  const services = ["google", "discord", "spotify", "github", "microsoft"];
 
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", padding: 20, backgroundColor: "#1e1e1e", color: "#f0f0f0" }}>
-      <button onClick={() => setShowWindows(prevWindows => (prevWindows === 0 ? 2 : 0))} style={{ padding: 10, borderRadius: 4, border: "none", backgroundColor: "#007bff", color: "#ffffff", fontSize: 16, cursor: "pointer", outline: "none" }}>
-        {showWindows === 0 ? 'Add Action / Reaction' : 'Close Windows'}
+    <div
+      style={{
+        fontFamily: "Arial, sans-serif",
+        padding: 20,
+        backgroundColor: "#1e1e1e",
+        color: "#f0f0f0",
+      }}
+    >
+      <button
+        onClick={() =>
+          setShowWindows((prevWindows) => (prevWindows === 0 ? 2 : 0))
+        }
+        style={{
+          padding: 10,
+          borderRadius: 4,
+          border: "none",
+          backgroundColor: "#007bff",
+          color: "#ffffff",
+          fontSize: 16,
+          cursor: "pointer",
+          outline: "none",
+        }}
+      >
+        {showWindows === 0 ? "Add Action / Reaction" : "Close Windows"}
       </button>
       {showWindows > 0 &&
         selectedServices.map((selectedService, index) => (
           <div key={index} style={{ marginTop: 20 }}>
             {services.map((service, serviceIndex) => (
-              <button key={serviceIndex} onClick={() => handleServiceSelection(service, index)} style={{ padding: 10, margin: 5, borderRadius: 4, border: "none", backgroundColor: "#383838", color: "#f0f0f0", fontSize: 14, cursor: "pointer", outline: "none" }}>
+              <button
+                key={serviceIndex}
+                onClick={() => handleServiceSelection(service, index)}
+                style={{
+                  padding: 10,
+                  margin: 5,
+                  borderRadius: 4,
+                  border: "none",
+                  backgroundColor: "#383838",
+                  color: "#f0f0f0",
+                  fontSize: 14,
+                  cursor: "pointer",
+                  outline: "none",
+                }}
+              >
                 {service}
               </button>
             ))}
-          <SmallWindow onClose={handleCloseWindow} selectedService={selectedService} onSubmit={(value: string) => handleSubmitValue(value, index)} />
+            <SmallWindow
+              onClose={handleCloseWindow}
+              selectedService={selectedService}
+              onSubmit={(value: string) => handleSubmitValue(value, index)}
+            />
           </div>
         ))}
       {showWindows > 0 && (
         <form onSubmit={handleSubmit} style={{ marginTop: 20 }}>
-          <input type="submit" value="Submit" style={{ padding: 10, borderRadius: 4, border: "none", backgroundColor: "#007bff", color: "#ffffff", fontSize: 16, cursor: "pointer", outline: "none" }} />
+          <input
+            type="submit"
+            value="Submit"
+            style={{
+              padding: 10,
+              borderRadius: 4,
+              border: "none",
+              backgroundColor: "#007bff",
+              color: "#ffffff",
+              fontSize: 16,
+              cursor: "pointer",
+              outline: "none",
+            }}
+          />
         </form>
       )}
     </div>
