@@ -2,8 +2,6 @@ import { useState } from "react";
 import { getPageSession } from "@/auth/lucia";
 import { redirect } from "next/navigation";
 import Applications from "../components/box";
-import Box from "../components/box";
-
 import Form from "@/components/form";
 
 const Page = async () => {
@@ -12,65 +10,108 @@ const Page = async () => {
 
   return (
     <body style={styles.page}>
-      <h1>Profile</h1>
-      <p>User id: {session.user.userId}</p>
-      <p>Username: {session.user.username}</p>
-      <Applications />
-      <Form action="/api/logout">
-        <input type="submit" value="Sign out" />
-      </Form>
+      <header style={styles.header}>
+        <h1 style={styles.title}>Area51</h1>
+        <p style={styles.subtitle}>L'automatisation sans limites!</p>
+      </header>
+
+      <section style={styles.profileSection}>
+        <h2 style={styles.sectionTitle}>Profile</h2>
+        <div style={styles.profileInfo}>
+          <p>User ID: {session.user.userId}</p>
+          <p>Username: {session.user.username}</p>
+        </div>
+      </section>
+
+      <section style={styles.applicationsSection}>
+        <h2 style={styles.sectionTitle}>Action / Réactions</h2>
+        <div style={styles.appContainer}>
+          <Applications />
+        </div>
+      </section>
+
+      <section style={styles.logoutSection}>
+        <h2 style={styles.sectionTitle}>Logout</h2>
+        <Form action="/api/logout">
+          <input type="submit" value="Sign out" style={styles.logoutButton} />
+        </Form>
+      </section>
     </body>
   );
 };
 
-
 const styles = {
   page: {
-    display: "flex" as const,
+    display: "flex",
     flexDirection: "column" as const,
     alignItems: "center",
-    height: "100vh",
+    minHeight: "100vh",
     margin: 0,
     padding: 20,
-    background: "linear-gradient(to bottom, #222222, #000000)",
-    color: "#fff",
+    background: "linear-gradient(to top, #000000, #111111)",
+    color: "#ffffff",
+  },
+  header: {
+    background: "#292929",
+    borderRadius: 10,
+    textAlign: "center" as const,
+    padding: 20,
+    width: "100%",
+    marginBottom: 40, // Increased margin for better spacing
+  },
+  title: {
+    fontSize: 36,
+    fontWeight: "bold",
+    margin: 0,
+    color: "#ffffff",
+  },
+  subtitle: {
+    fontSize: 16,
+    margin: 0,
+    color: "#aaaaaa",
+  },
+  profileSection: {
+    background: "#333333",
+    borderRadius: 10,
+    padding: 20,
+    width: "30%",
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    marginBottom: 10,
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#ffffff",
+  },
+  profileInfo: {
+    color: "#ffffff",
+  },
+  applicationsSection: {
+    background: "#333333",
+    borderRadius: 10,
+    textAlign: "center" as const,
+    padding: 20,
+    marginBottom: 40, // Increased margin for better spacing
   },
   appContainer: {
-    display: "flex" as const,
+    display: "flex",
     flexWrap: "wrap" as const,
     justifyContent: "center",
     gap: 20,
-    marginTop: 20,
   },
-  appBox: {
-    backgroundColor: "#232323",
+  logoutSection: {
+    background: "#333333",
     borderRadius: 10,
+    textAlign: "center" as const,
     padding: 20,
-    width: 300,
-    height: 200,
-    display: "flex",
-    flexDirection: "column" as const,
-    alignItems: "center",
-    justifyContent: "center",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   },
-  title: {
-    marginBottom: 10,
-    fontWeight: "bold",
-  },
-  buttonContainer: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    marginTop: 10,
-  },
-  onOffButton: {
+  logoutButton: {
     backgroundColor: "#1abc54",
-    color: "black",
+    color: "#ffffff",
     fontWeight: "bold",
-    width: "80px",
-    height: "30px",
-    fontSize: 12,
+    width: "120px",
+    height: "40px",
+    fontSize: 16,
     borderRadius: "20px",
     border: "none",
     cursor: "pointer",
