@@ -1,6 +1,8 @@
 import { getPageSession } from "@/auth/lucia";
 import { redirect } from "next/navigation";
 import Toggle from "../components/toggle";
+import Box from "../components/box";
+
 
 import Form from "@/components/form";
 
@@ -10,10 +12,9 @@ const Page = async () => {
 
   const applications = [
     { name: "App 1", description: "Description for App 1" },
-    { name: "App 2", description: "Description for App 2" },
-    { name: "App 3", description: "Description for App 3" },
-    // Ajoute d'autres applications avec leurs données
   ];
+
+  
 
   return (
     <body style={styles.page}>
@@ -24,12 +25,15 @@ const Page = async () => {
         {applications.map((app, index) => (
           <div key={index} style={styles.appBox}>
             <p style={styles.title}>{app.name}</p>
-            <p>{app.description}</p>
+            <p>{app.description}</p>  
             <div style={styles.buttonContainer}>
               <Toggle />
             </div>
           </div>
         ))}
+        <div style={styles.plus}>
+          <Box />
+        </div>
       </div>
       <Form action="/api/logout">
         <input type="submit" value="Sign out" />
@@ -49,6 +53,9 @@ const styles = {
     background: "linear-gradient(to bottom, #222222, #000000)",
     color: "#fff",
   },
+  plus: {
+    background: "#444444"
+  },
   appContainer: {
     display: "flex",
     flexWrap: "wrap",
@@ -57,7 +64,7 @@ const styles = {
     marginTop: 20,
   },
   appBox: {
-    backgroundColor: "#121212",
+    backgroundColor: "#232323",
     borderRadius: 10,
     padding: 20,
     width: 300,
@@ -65,7 +72,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "space-between", // Permet au bouton d'être en bas
+    justifyContent: "center",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   },
   title: {
