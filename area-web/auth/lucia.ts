@@ -9,13 +9,13 @@ import { userAgent } from "next/server";
 
 import type { NextRequest } from "next/server";
 
-const client = new PrismaClient();
+export const client = new PrismaClient();
 
 /**
  * The authentication object.
  */
 export const auth = lucia({
-  env: "DEV",
+  env: process.env.NODE_ENV === "production" ? "PROD" : "DEV",
   middleware: nextjs_future(),
   sessionCookie: {
     expires: false,
@@ -63,6 +63,11 @@ export const googleAuth = google(auth, {
   scope: ["email", "profile"],
 });
 
+/**
+ * Discord authentication configuration.
+ * @param {Auth} auth - The authentication object.
+ * @returns {Auth} The configured Discord authentication object.
+ */
 export const discordAuth = discord(auth, {
   clientId: process.env.DISCORD_CLIENT_ID ?? "",
   clientSecret: process.env.DISCORD_CLIENT_SECRET ?? "",

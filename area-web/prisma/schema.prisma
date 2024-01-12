@@ -32,3 +32,10 @@ model Key {
 
   @@index([user_id])
 }
+
+model Token {
+  id      String @id @unique @default(uuid())
+  name    String
+  value   String
+  user_id String
+}
