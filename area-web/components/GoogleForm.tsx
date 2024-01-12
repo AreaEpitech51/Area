@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const GoogleForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+const GoogleForm = ({ onClose }: { onClose: () => void }) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Logique de soumission du formulaire Google si nécessaire
@@ -8,7 +8,7 @@ const GoogleForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   const styles = {
     window: {
-      position: "fixed",
+      position: "fixed" as const,
       top: "50%",
       left: "50%",
       transform: "translate(-50%, -50%)",

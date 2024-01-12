@@ -4,7 +4,14 @@ import { prisma } from "@lucia-auth/adapter-prisma";
 import { PrismaClient } from "@prisma/client";
 import { cache } from "react";
 import * as context from "next/headers";
-import { azureAD, github, google, discord, spotify, slack } from "@lucia-auth/oauth/providers";
+import {
+  azureAD,
+  github,
+  google,
+  discord,
+  spotify,
+  slack,
+} from "@lucia-auth/oauth/providers";
 import { userAgent } from "next/server";
 
 import type { NextRequest } from "next/server";

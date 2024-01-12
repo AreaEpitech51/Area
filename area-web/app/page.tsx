@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import Toggle from "../components/toggle";
 import Box from "../components/box";
 
-
 import Form from "@/components/form";
 
 const Page = async () => {
@@ -14,8 +13,6 @@ const Page = async () => {
     { name: "App 1", description: "Description for App 1" },
   ];
 
-  
-
   return (
     <body style={styles.page}>
       <h1>Profile</h1>
@@ -25,7 +22,7 @@ const Page = async () => {
         {applications.map((app, index) => (
           <div key={index} style={styles.appBox}>
             <p style={styles.title}>{app.name}</p>
-            <p>{app.description}</p>  
+            <p>{app.description}</p>
             <div style={styles.buttonContainer}>
               <Toggle />
             </div>
@@ -44,8 +41,8 @@ const Page = async () => {
 
 const styles = {
   page: {
-    display: "flex",
-    flexDirection: "column",
+    display: "flex" as const,
+    flexDirection: "column" as const,
     alignItems: "center",
     height: "100vh",
     margin: 0,
@@ -54,11 +51,11 @@ const styles = {
     color: "#fff",
   },
   plus: {
-    background: "#444444"
+    background: "#444444",
   },
   appContainer: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: "flex" as const,
+    flexWrap: "wrap" as const,
     justifyContent: "center",
     gap: 20,
     marginTop: 20,
@@ -70,7 +67,7 @@ const styles = {
     width: 300,
     height: 200,
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column" as const,
     alignItems: "center",
     justifyContent: "center",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
