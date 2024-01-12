@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { getPageSession } from "@/auth/lucia";
 import { redirect } from "next/navigation";
-import Toggle from "../components/toggle";
+import Applications from "../components/box";
 import Box from "../components/box";
 
 import Form from "@/components/form";
@@ -9,35 +10,19 @@ const Page = async () => {
   const session = await getPageSession();
   if (!session) redirect("/login");
 
-  const applications = [
-    { name: "App 1", description: "Description for App 1" },
-  ];
-
   return (
     <body style={styles.page}>
       <h1>Profile</h1>
       <p>User id: {session.user.userId}</p>
       <p>Username: {session.user.username}</p>
-      <div style={styles.appContainer}>
-        {applications.map((app, index) => (
-          <div key={index} style={styles.appBox}>
-            <p style={styles.title}>{app.name}</p>
-            <p>{app.description}</p>
-            <div style={styles.buttonContainer}>
-              <Toggle />
-            </div>
-          </div>
-        ))}
-        <div style={styles.plus}>
-          <Box />
-        </div>
-      </div>
+      <Applications />
       <Form action="/api/logout">
         <input type="submit" value="Sign out" />
       </Form>
     </body>
   );
 };
+
 
 const styles = {
   page: {
@@ -49,9 +34,6 @@ const styles = {
     padding: 20,
     background: "linear-gradient(to bottom, #222222, #000000)",
     color: "#fff",
-  },
-  plus: {
-    background: "#444444",
   },
   appContainer: {
     display: "flex" as const,
