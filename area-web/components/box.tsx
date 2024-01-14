@@ -157,35 +157,43 @@ const Applications = () => {
   
 
   return (
-  <div style={styles.appContainerBox}>
-    <div style={styles.appContainer}>
-      <CallActions applications={applications} />
-      <Box setApplications={setApplications} styles={styles} />
-      <div style={styles.plus}></div>
-      {applications.map((app, index) => (
-        <div key={index} style={styles.appBox}>
-          {app.names.map((name, i) => (
-            <div key={i}>
-              <p style={styles.title}>{`${name}`}</p>
-              <p>{app.descriptions[i]}</p>
+    <div style={styles.appContainerBox}>
+      <div style={styles.appContainer}>
+        <CallActions applications={applications} />
+        <Box setApplications={setApplications} styles={styles} />
+        <div style={styles.plus}></div>
+        {applications.map((app, index) => (
+          <div key={index} style={styles.appBox}>
+            {app.names.map((name, i) => (
+              <div key={i}>
+                <p style={styles.title}>{`${name}`}</p>
+                <p>{app.descriptions[i]}</p>
+              </div>
+            ))}
+            <div style={styles.buttonContainer}>
+              <Toggle />
             </div>
-          ))}
-          <div style={styles.buttonContainer}>
-            <Toggle />
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-  </div>
   );
 };
 
-
-
-const Box = ({ setApplications, styles }: { setApplications: (value: any) => void; styles: any }) => {
+const Box = ({
+  setApplications,
+  styles,
+}: {
+  setApplications: (value: any) => void;
+  styles: any;
+}) => {
   const [showWindows, setShowWindows] = useState<number>(0);
-  const [selectedServices, setSelectedServices] = useState<Array<string | null>>([null, null]);
-  const [submittedValues, setSubmittedValues] = useState<string[]>(Array.from({ length: 2 }, () => ""));
+  const [selectedServices, setSelectedServices] = useState<
+    Array<string | null>
+  >([null, null]);
+  const [submittedValues, setSubmittedValues] = useState<string[]>(
+    Array.from({ length: 2 }, () => "")
+  );
 
   const handleServiceSelection = (service: string, windowIndex: number) => {
     const updatedServices = [...selectedServices];
@@ -199,7 +207,12 @@ const Box = ({ setApplications, styles }: { setApplications: (value: any) => voi
     setSubmittedValues(updatedSubmittedValues);
   };
 
-  const createApplication = (name1: string, name2: string, submitted1: string, submitted2: string) => {
+  const createApplication = (
+    name1: string,
+    name2: string,
+    submitted1: string,
+    submitted2: string
+  ) => {
     name1 = "Action: " + name1;
     name2 = "Reaction: " + name2;
     console.log(name1 + ": " + name2 + ": " + submitted1 + ": " + submitted2);
@@ -207,8 +220,11 @@ const Box = ({ setApplications, styles }: { setApplications: (value: any) => voi
       names: [name1, name2],
       descriptions: [submitted1, submitted2],
     };
-    setApplications((prevApplications: any) => [...prevApplications, newApplication]);
-    console.log(newApplication);
+
+    setApplications((prevApplications: any) => [
+      ...prevApplications,
+      newApplication,
+    ]);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -268,9 +284,21 @@ const Box = ({ setApplications, styles }: { setApplications: (value: any) => voi
   const services = ["google", "discord", "spotify", "github", "microsoft"];
 
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", padding: 20, backgroundColor: "#242424", color: "#f0f0f0", borderRadius: 20, justifyContent: "center", alignItems: "center" }}>
+    <div
+      style={{
+        fontFamily: "Arial, sans-serif",
+        padding: 20,
+        backgroundColor: "#242424",
+        color: "#f0f0f0",
+        borderRadius: 20,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <button
-        onClick={() => setShowWindows((prevWindows) => (prevWindows === 0 ? 2 : 0))}
+        onClick={() =>
+          setShowWindows((prevWindows) => (prevWindows === 0 ? 2 : 0))
+        }
         style={{
           marginTop: 80,
           padding: "10px 20px",
@@ -310,11 +338,7 @@ const Box = ({ setApplications, styles }: { setApplications: (value: any) => voi
         ))}
       {showWindows > 0 && (
         <form onSubmit={handleSubmit} style={{ marginTop: 20 }}>
-          <input
-            type="submit"
-            value="Submit"
-            style={styles.submitButton}
-          />
+          <input type="submit" value="Submit" style={styles.submitButton} />
         </form>
       )}
     </div>
@@ -384,6 +408,5 @@ const SmallWindow = ({
     </div>
   );
 };
-
 
 export default Applications;
