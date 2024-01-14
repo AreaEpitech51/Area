@@ -135,7 +135,7 @@ const Applications = () => {
   
   const callReaction = async ({ description, content }: { description: string, content: string }) => {
     if (description === "send_mail") {
-        await fetch("https://localhost:3000/api/reactions/send_mail", {
+        await fetch("http://localhost:3000/api/reactions/send_mail", {
           method: "POST",
           body: content,
         });
@@ -147,7 +147,7 @@ const Applications = () => {
     applications.forEach(async (app, _appIndex) => {
       if (app.descriptions[0] == "emoji-github") {
         const emoji = await fetch(
-          "https:localhost:3000/api/actions/github/emoji"
+          "http:localhost:3000/api/actions/github/emoji"
         );
         const text = await emoji.text();
         callReaction({ description: app.descriptions[1], content: text });
