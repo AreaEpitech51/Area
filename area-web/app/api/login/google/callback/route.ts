@@ -17,12 +17,12 @@ export const GET = async (request: NextRequest) => {
       status: 400,
     });
   }
-  const userid = session.user.userId;
+  const user_id = session.user.userId;
   await client.token.create({
     data: {
       name: "google",
       value: code,
-      user_id: userid,
+      user_id,
     },
   });
   return redirect("/");
