@@ -6,6 +6,11 @@ import { getSession } from "@/auth/lucia";
 import { client } from "@/auth/lucia";
 import type { NextRequest } from "next/server";
 
+
+/**
+ * this functions call the action every 5 seconds to check if the action triggered
+ * @returns The Action reaction system
+ */
 const Applications = () => {
   const [applications, setApplications] = useState([
     {
@@ -114,6 +119,9 @@ const Applications = () => {
   };
 
 
+  /**
+   * this function call action every 5 seconds
+   */
   const CallActions = ({ applications }: { applications: Application[] }) => {
     useEffect(() => {
       const intervalId = setInterval(async () => {
@@ -133,6 +141,11 @@ const Applications = () => {
     descriptions: string[];
   };
   
+  /**
+   * call reaction when action is trigerred 
+   * @param description is the reaction triggered by the action,
+   * @param content is a string to send to the reaction
+   */
   const callReaction = async ({ description, content }: { description: string, content: string }) => {
     if (description === "send_mail") {
         await fetch("https://localhost:3000/api/reactions/send_mail", {
@@ -143,6 +156,10 @@ const Applications = () => {
   }
   
   
+  /**
+   * check which action is on the website and launch them if they are on it
+   * @param applications is the list of all the Action with their associed Reaction
+   */
   const LaunchActions = ({ applications }: { applications: Application[] }) => {
     applications.forEach(async (app, _appIndex) => {
       if (app.descriptions[0] == "emoji-github") {
@@ -195,18 +212,35 @@ const Box = ({
     Array.from({ length: 2 }, () => "")
   );
 
+  /**
+   * select the service
+   * @param service 
+   * @param windowIndex 
+   */
   const handleServiceSelection = (service: string, windowIndex: number) => {
     const updatedServices = [...selectedServices];
     updatedServices[windowIndex] = service;
     setSelectedServices(updatedServices);
   };
 
+  /**
+   * submit the action reaction selection
+   * @param value 
+   * @param index 
+   */
   const handleSubmitValue = (value: string, index: number) => {
     const updatedSubmittedValues = [...submittedValues];
     updatedSubmittedValues[index] = value;
     setSubmittedValues(updatedSubmittedValues);
   };
 
+  /**
+   * This function store the selected services in the application list
+   * @param name1 Service 1
+   * @param name2 Service 2
+   * @param submitted1 Action
+   * @param submitted2 Reaction
+   */
   const createApplication = (
     name1: string,
     name2: string,
@@ -227,6 +261,10 @@ const Box = ({
     ]);
   };
 
+  /**
+   * this function is called when the user submit the Action/Reaction
+   * @param event 
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -275,6 +313,9 @@ const Box = ({
     handleCloseWindow();
   };
 
+  /**
+   * this function close the window if u dont want to create Action / reaction
+   */
   const handleCloseWindow = () => {
     setShowWindows(0);
     setSelectedServices([null, null]);
@@ -345,6 +386,11 @@ const Box = ({
   );
 };
 
+/**
+ * All action reaction that can be selected
+ * @param selectedService 
+ * @returns 
+ */
 const getServiceInfo = (selectedService: string | null) => {
   switch (selectedService) {
     case "google":

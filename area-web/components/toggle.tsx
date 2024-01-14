@@ -4,6 +4,9 @@ import React, { useState } from "react";
 const ToggleButton = () => {
   const [isOn, setIsOn] = useState(true);
 
+  /**
+   * change button state
+   */
   const toggleSwitch = () => {
     setIsOn((prevState) => !prevState);
   };

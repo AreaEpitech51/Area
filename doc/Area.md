@@ -9,4 +9,5 @@ Area is an epitech project, the goal of this project is to create a web client /
 [Technology used](technology.md)
 [How to start project](start-project.md)
 [How to add a new authentication method with Lucia](add-new-auth.md)
+[How to add a new action / a new reaction](add-new-action.md)
 [Front](front.md)
