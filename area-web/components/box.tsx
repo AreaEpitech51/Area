@@ -147,7 +147,7 @@ const Applications = () => {
     applications.forEach(async (app, _appIndex) => {
       if (app.descriptions[0] == "emoji-github") {
         const emoji = await fetch(
-          "http:localhost:3000/api/actions/github/emoji"
+          "http://localhost:3000/api/actions/github/emoji"
         );
         const text = await emoji.text();
         callReaction({ description: app.descriptions[1], content: text });
