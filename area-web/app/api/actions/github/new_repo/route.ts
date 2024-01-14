@@ -54,10 +54,7 @@ export const GET = async (_request: NextRequest) => {
   return {
     status: 200,
     body: {
-      message: "success",
-      data: {
-        new_repo,
-      },
+      message: "You have created a new repo in the last 24 hours",
     },
   };
 };

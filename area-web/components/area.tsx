@@ -8,15 +8,20 @@ type Application = {
   descriptions: string[];
 };
 
-const callReaction = async ({ description, content }: { description: string, content: string }) => {
+const callReaction = async ({
+  description,
+  content,
+}: {
+  description: string;
+  content: string;
+}) => {
   if (description === "send_mail") {
-      await fetch("https://localhost:3000/api/reactions/send_mail", {
-        method: "POST",
-        body: content,
-      });
+    await fetch("https://localhost:3000/api/reactions/send_mail", {
+      method: "POST",
+      body: content,
+    });
   }
-}
-
+};
 
 const LaunchActions = ({ applications }: { applications: Application[] }) => {
   applications.forEach(async (app, _appIndex) => {
@@ -26,6 +31,14 @@ const LaunchActions = ({ applications }: { applications: Application[] }) => {
       );
       const text = await emoji.text();
       callReaction({ description: app.descriptions[1], content: text });
+    }
+    if (app.names[0] === "repo") {
+      const res = await fetch(
+        "https:localhost:3000/api/actions/github/new_repo"
+      );
+      const json = await res.json();
+      const { message } = json;
+      callReaction({ description: app.descriptions[1], content: message });
     }
   });
 };
