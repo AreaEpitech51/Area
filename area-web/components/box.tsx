@@ -1,7 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import Toggle from "../components/toggle";
-import CallActions from "./area";
+import { useEffect } from "react";
+import { getSession } from "@/auth/lucia";
+import { client } from "@/auth/lucia";
+import type { NextRequest } from "next/server";
+
 const Applications = () => {
   const [applications, setApplications] = useState([
     {
@@ -109,6 +113,49 @@ const Applications = () => {
     },
   };
 
+
+  const CallActions = ({ applications }: { applications: Application[] }) => {
+    useEffect(() => {
+      const intervalId = setInterval(async () => {
+        LaunchActions({ applications });
+      }, 5000);
+  
+      return () => {
+        clearInterval(intervalId);
+      };
+    }, []);
+  
+    return <div></div>;
+  };
+
+  type Application = {
+    names: string[];
+    descriptions: string[];
+  };
+  
+  const callReaction = async ({ description, content }: { description: string, content: string }) => {
+    if (description === "send_mail") {
+        await fetch("https://localhost:3000/api/reactions/send_mail", {
+          method: "POST",
+          body: content,
+        });
+    }
+  }
+  
+  
+  const LaunchActions = ({ applications }: { applications: Application[] }) => {
+    applications.forEach(async (app, _appIndex) => {
+      if (app.descriptions[0] == "emoji-github") {
+        const emoji = await fetch(
+          "https:localhost:3000/api/actions/github/emoji"
+        );
+        const text = await emoji.text();
+        callReaction({ description: app.descriptions[1], content: text });
+      }
+    });
+  };
+  
+
   return (
   <div style={styles.appContainerBox}>
     <div style={styles.appContainer}>
@@ -155,12 +202,13 @@ const Box = ({ setApplications, styles }: { setApplications: (value: any) => voi
   const createApplication = (name1: string, name2: string, submitted1: string, submitted2: string) => {
     name1 = "Action: " + name1;
     name2 = "Reaction: " + name2;
+    console.log(name1 + ": " + name2 + ": " + submitted1 + ": " + submitted2);
     const newApplication = {
       names: [name1, name2],
       descriptions: [submitted1, submitted2],
     };
-
     setApplications((prevApplications: any) => [...prevApplications, newApplication]);
+    console.log(newApplication);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -182,7 +230,7 @@ const Box = ({ setApplications, styles }: { setApplications: (value: any) => voi
         submitted1 = "7";
       }
       if (name1 === "github") {
-        submitted1 = "10";
+        submitted1 = "emoji-github";
       }
       if (name1 === "microsoft") {
         submitted1 = "13";
@@ -200,7 +248,7 @@ const Box = ({ setApplications, styles }: { setApplications: (value: any) => voi
         submitted2 = "7";
       }
       if (name2 === "github") {
-        submitted2 = "10";
+        submitted2 = "11";
       }
       if (name2 === "microsoft") {
         submitted2 = "13";
@@ -208,7 +256,6 @@ const Box = ({ setApplications, styles }: { setApplications: (value: any) => voi
     }
 
     createApplication(name1, name2, submitted1, submitted2);
-
     handleCloseWindow();
   };
 
@@ -257,6 +304,7 @@ const Box = ({ setApplications, styles }: { setApplications: (value: any) => voi
               selectedService={selectedService}
               onSubmit={(value: string) => handleSubmitValue(value, index)}
               styles={styles}
+              isReaction={index === 1}
             />
           </div>
         ))}
@@ -273,15 +321,34 @@ const Box = ({ setApplications, styles }: { setApplications: (value: any) => voi
   );
 };
 
+const getServiceInfo = (selectedService: string | null) => {
+  switch (selectedService) {
+    case "google":
+      return { options: ["1", "2", "3"], reactions: ["google"] };
+    case "discord":
+      return { options: ["4", "5", "6"], reactions: ["discord"] };
+    case "spotify":
+      return { options: ["7", "8", "9"], reactions: ["google"] };
+    case "github":
+      return { options: ["emoji-github", "11", "12"], reactions: ["github"] };
+    case "microsoft":
+      return { options: ["13", "14", "15"], reactions: ["microsoft"] };
+    default:
+      return { options: [], reactions: [] };
+  }
+};
+
 const SmallWindow = ({
   onClose,
   selectedService,
   onSubmit,
+  isReaction,
   styles,
 }: {
   onClose: () => void;
   selectedService: string | null;
   onSubmit: (value: string) => void;
+  isReaction: boolean;
   styles: any;
 }) => {
   const [selectedValue, setSelectedValue] = useState("1");
@@ -292,34 +359,21 @@ const SmallWindow = ({
     onSubmit(value);
   };
 
-  const getOptions = () => {
-    switch (selectedService) {
-      case "google":
-        return ["1", "2", "3"];
-      case "discord":
-        return ["4", "5", "6"];
-      case "spotify":
-        return ["7", "8", "9"];
-      case "github":
-        return ["10", "11", "12"];
-      case "microsoft":
-        return ["13", "14", "15"];
-      default:
-        return [];
-    }
-  };
+  const { options, reactions } = getServiceInfo(selectedService);
+  const menuOptions = isReaction ? reactions : options;
+  const menuLabel = isReaction ? "Choose a Reaction:" : "Choose an Action:";
 
   return (
     <div style={styles.smallWindow}>
       <form>
         <label style={{ display: "block", marginBottom: 10 }}>
-          Choose a Value:
+          {menuLabel}
           <select
             value={selectedValue}
             onChange={handleChange}
             style={styles.select}
           >
-            {getOptions().map((option, index) => (
+            {menuOptions.map((option, index) => (
               <option key={index} value={option}>
                 {option}
               </option>
@@ -330,5 +384,6 @@ const SmallWindow = ({
     </div>
   );
 };
+
 
 export default Applications;
