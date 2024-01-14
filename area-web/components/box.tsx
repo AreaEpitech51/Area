@@ -127,12 +127,12 @@ const Applications = () => {
       const intervalId = setInterval(async () => {
         LaunchActions({ applications });
       }, 5000);
-  
+
       return () => {
         clearInterval(intervalId);
       };
     }, []);
-  
+
     return <div></div>;
   };
 
@@ -148,10 +148,10 @@ const Applications = () => {
    */
   const callReaction = async ({ description, content }: { description: string, content: string }) => {
     if (description === "send_mail") {
-        await fetch("https://localhost:3000/api/reactions/send_mail", {
-          method: "POST",
-          body: content,
-        });
+      await fetch("localhost:3000/api/reactions/send_mail", {
+        method: "POST",
+        body: content,
+      });
     }
   }
   
@@ -163,15 +163,12 @@ const Applications = () => {
   const LaunchActions = ({ applications }: { applications: Application[] }) => {
     applications.forEach(async (app, _appIndex) => {
       if (app.descriptions[0] == "emoji-github") {
-        const emoji = await fetch(
-          "https:localhost:3000/api/actions/github/emoji"
-        );
+        const emoji = await fetch("localhost:3000/api/actions/github/emoji");
         const text = await emoji.text();
         callReaction({ description: app.descriptions[1], content: text });
       }
     });
   };
-  
 
   return (
     <div style={styles.appContainerBox}>
