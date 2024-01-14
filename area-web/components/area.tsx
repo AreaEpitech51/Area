@@ -15,7 +15,7 @@ const LaunchActions = async ( {applications}: { applications: Application[] }) =
     });
   });
 };
-  
+
 const CallActions = ({ applications }: { applications: Application[] }) => {
     useEffect(() => {
         const intervalId = setInterval(async () => {
