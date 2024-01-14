@@ -3,6 +3,12 @@ import { getPageSession } from "@/auth/lucia";
 import { redirect } from "next/navigation";
 import Applications from "../components/box";
 import Form from "@/components/form";
+import Image from "next/image";
+import discord from "assets/Discord_icon.png"
+import google from "assets/Google_icon.png"
+import github from "assets/GitHub_icon.png"
+import microsoft from "assets/Microsoft_icon.png"
+import spotify from "assets/Spotify_icon.png"
 
 const Page = async () => {
   const session = await getPageSession();
@@ -29,7 +35,24 @@ const Page = async () => {
           <Applications />
         </div>
       </section>
-
+      <p>Connectez vous aux services suivant :</p>
+      <div style={styles.imageBox}>
+        <a href="/api/login/discord">
+          <Image src={discord} alt="discord" width={50} />
+        </a>
+        <a href="/api/login/google">
+          <Image src={google} alt="google" width={50} />
+        </a>
+        <a href="/api/login/github">
+          <Image src={github} alt="github" width={50} />
+        </a>
+        <a href="/api/login/microsoft">
+          <Image src={microsoft} alt="microsoft" width={50} />
+        </a>
+        <a href="/api/login/spotify">
+          <Image src={spotify} alt="spotify" width={50} />
+        </a>
+      </div>
       <section style={styles.logoutSection}>
         <h2 style={styles.sectionTitle}>Logout</h2>
         <Form action="/api/logout">
@@ -51,13 +74,23 @@ const styles = {
     background: "linear-gradient(to top, #000000, #111111)",
     color: "#ffffff",
   },
+  imageBox: {
+    display: "flex",
+    flexDirection: "row" as const,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+    marginBottom: 20,
+    background: "linear-gradient(to top, #000000, #111111)",
+    color: "#ffffff",
+  },
   header: {
     background: "#292929",
     borderRadius: 10,
     textAlign: "center" as const,
     padding: 20,
     width: "100%",
-    marginBottom: 40, // Increased margin for better spacing
+    marginBottom: 40,
   },
   title: {
     fontSize: 36,
@@ -91,7 +124,7 @@ const styles = {
     borderRadius: 10,
     textAlign: "center" as const,
     padding: 20,
-    marginBottom: 40, // Increased margin for better spacing
+    marginBottom: 40,
   },
   appContainer: {
     display: "flex",

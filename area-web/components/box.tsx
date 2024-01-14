@@ -5,8 +5,8 @@ import CallActions from "./area";
 const Applications = () => {
   const [applications, setApplications] = useState([
     {
-      names: ["App 1 - Name 1", "App 1 - Name 2"],
-      descriptions: ["Description 1 for App 1", "Description 2 for App 1"],
+      names: ["Action Service", "Reaction Service"],
+      descriptions: ["Nom action", "Nom réaction"],
     },
   ]);
 

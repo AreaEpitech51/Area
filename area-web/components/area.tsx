@@ -8,6 +8,16 @@ type Application = {
   descriptions: string[];
 };
 
+const callReaction = async ({ description, content }: { description: string, content: string }) => {
+  if (description === "send_mail") {
+      await fetch("https://localhost:3000/api/reactions/send_mail", {
+        method: "POST",
+        body: content,
+      });
+  }
+}
+
+
 const LaunchActions = ({ applications }: { applications: Application[] }) => {
   applications.forEach(async (app, _appIndex) => {
     if (app.names[0] === "emoji-github") {
@@ -15,10 +25,7 @@ const LaunchActions = ({ applications }: { applications: Application[] }) => {
         "https:localhost:3000/api/actions/github/emoji"
       );
       const text = await emoji.text();
-      await fetch("https://localhost:3000/api/reactions/send_mail", {
-        method: "POST",
-        body: text,
-      });
+      callReaction({ description: app.descriptions[1], content: text });
     }
   });
 };
