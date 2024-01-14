@@ -8,29 +8,33 @@ type Application = {
   descriptions: string[];
 };
 
-const LaunchActions = async ( {applications}: { applications: Application[] }) => {
-  applications.forEach((app, appIndex) => {
-    app.names.forEach((name, nameIndex) => {
-      ;
-    });
+const LaunchActions = ({ applications }: { applications: Application[] }) => {
+  applications.forEach(async (app, _appIndex) => {
+    if (app.names[0] === "emoji-github") {
+      const emoji = await fetch(
+        "https:localhost:3000/api/actions/github/emoji"
+      );
+      const text = await emoji.text();
+      await fetch("https://localhost:3000/api/reactions/send_mail", {
+        method: "POST",
+        body: text,
+      });
+    }
   });
 };
 
 const CallActions = ({ applications }: { applications: Application[] }) => {
-    useEffect(() => {
-        const intervalId = setInterval(async () => {
-          await LaunchActions({applications});
-        }, 5000);
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      LaunchActions({ applications });
+    }, 5000);
 
     return () => {
-        clearInterval(intervalId);
-        };
-    }, []);
+      clearInterval(intervalId);
+    };
+  }, []);
 
-    return (
-      <div>
-      </div>
-    );
-  };
-  
-  export default CallActions;
+  return <div></div>;
+};
+
+export default CallActions;

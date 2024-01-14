@@ -1,4 +1,4 @@
-import { auth, githubAuth } from "@/auth/lucia";
+import { auth, client, githubAuth } from "@/auth/lucia";
 import { OAuthRequestError } from "@lucia-auth/oauth";
 import { cookies, headers } from "next/headers";
 
@@ -39,6 +39,14 @@ export const GET = async (request: NextRequest) => {
       headers,
     });
     authRequest.setSession(session);
+    const user_id = session.user.userId;
+    await client.token.create({
+      data: {
+        name: "github",
+        value: code,
+        user_id,
+      },
+    });
     return new Response(null, {
       status: 302,
       headers: {
