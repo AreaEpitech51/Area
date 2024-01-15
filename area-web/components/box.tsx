@@ -162,8 +162,7 @@ const Applications = () => {
     }
     if (description === "skip_music") {
       console.log("skip_music");
-      const token =
-        "AQCKu3LtlFO58WN_yRaLtbW-rDptEX4755g425LTp7r_XY-8GSMV8fzDvBCjyHbI7pbqDsvyF_XO5gK0Uoi9O-wGZlBGrZgBwcbNBXGlK5ziWeRNEuXNZ9NhVR45MxnfsExACxU74wrPLsnu-1qr131QjGVIE5qOXreTd1H0Ken9UkoJnk7tjY4RQbcoQqwGKW3vRo_j88I00C2zZwF5AIW1VfhEd7oitX21r8RmCdaUobCggzAv8A";
+      const token = "AQBe0_g0IFb00QNE8vWnAVx2aeGkE5MA4nUi_2iWsJRUTJXvKlMcj9sS8SffmWoVaMNkp_kHCl2Yf0HOTJ0B7dL-jzUd-cHJw5vjJ7iwvpYW5zyGhvV8__odJ9HAFUtMx90Y47JF2YSfEwxl7eRDt-MYx2kzAURYBMUX62QMfmP22EzlYHkbuLm-5ldwibkKJvBS5Ukm6gvTvApRSa-Sw0NQS9riqxbMANOR_FJyCuYyQxtXRFKDkfuMFPqevJrsqvARTI9A07fTmdWrI7jtriwqLgk";
       await fetch("https://api.spotify.com/v1/me/player/next", {
         method: "POST",
         headers: {
@@ -488,15 +487,15 @@ const Box = ({
 const getServiceInfo = (selectedService: string | null) => {
   switch (selectedService) {
     case "google":
-      return { options: ["1", "2", "3"], reactions: ["google"] };
+      return { options: ["None"], reactions: ["None"] };
     case "discord":
-      return { options: ["4", "5", "6"], reactions: ["discord"] };
+      return { options: ["None"], reactions: ["None"] };
     case "spotify":
-      return { options: ["7", "8", "9"], reactions: ["skip_music"] };
+      return { options: ["None"], reactions: ["skip_music"] };
     case "github":
-      return { options: ["emoji-github", "11", "12"], reactions: ["github"] };
+      return { options: ["emoji-github"], reactions: ["None"] };
     case "microsoft":
-      return { options: ["13", "14", "15"], reactions: ["microsoft"] };
+      return { options: ["None"], reactions: ["None"] };
     case "timer":
       return {
         options: ["60s", "10min", "30min", "1h", "24h"],
