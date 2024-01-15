@@ -1,14 +1,13 @@
-import { useState } from "react";
 import { getPageSession } from "@/auth/lucia";
 import { redirect } from "next/navigation";
 import Applications from "../components/box";
 import Form from "@/components/form";
 import Image from "next/image";
-import discord from "assets/Discord_icon.png"
-import google from "assets/Google_icon.png"
-import github from "assets/GitHub_icon.png"
-import microsoft from "assets/Microsoft_icon.png"
-import spotify from "assets/Spotify_icon.png"
+import discord from "@/assets/Discord_icon.png";
+import google from "@/assets/Google_icon.png";
+import github from "@/assets/GitHub_icon.png";
+import microsoft from "@/assets/Microsoft_icon.png";
+import spotify from "@/assets/Spotify_icon.png";
 
 const Page = async () => {
   const session = await getPageSession();

@@ -155,21 +155,14 @@ const Applications = () => {
     content: string;
   }) => {
     if (description === "send_mail") {
-      await fetch("http://localhost:3000/api/reactions/send_mail", {
+      await fetch("http://localhost:3000/api/reaction/send_mail", {
         method: "POST",
         body: content,
       });
     }
     if (description === "skip_music") {
       console.log("skip_music");
-      const token =
-        "AQCKu3LtlFO58WN_yRaLtbW-rDptEX4755g425LTp7r_XY-8GSMV8fzDvBCjyHbI7pbqDsvyF_XO5gK0Uoi9O-wGZlBGrZgBwcbNBXGlK5ziWeRNEuXNZ9NhVR45MxnfsExACxU74wrPLsnu-1qr131QjGVIE5qOXreTd1H0Ken9UkoJnk7tjY4RQbcoQqwGKW3vRo_j88I00C2zZwF5AIW1VfhEd7oitX21r8RmCdaUobCggzAv8A";
-      await fetch("https://api.spotify.com/v1/me/player/next", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      await fetch("http://localhost:3000/api/reaction/spotify");
     }
   };
 
