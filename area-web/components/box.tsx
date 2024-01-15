@@ -7,7 +7,6 @@ import { client } from "@/auth/lucia";
 import type { NextRequest } from "next/server";
 import { date } from "zod";
 
-
 /**
  * this functions call the action every 5 seconds to check if the action triggered
  * @returns The Action reaction system
@@ -120,7 +119,6 @@ const Applications = () => {
     },
   };
 
-
   /**
    * this function call action every 5 seconds
    */
@@ -143,30 +141,37 @@ const Applications = () => {
     descriptions: string[];
     data: string[];
   };
-  
+
   /**
-   * call reaction when action is trigerred 
+   * call reaction when action is trigerred
    * @param description is the reaction triggered by the action,
    * @param content is a string to send to the reaction
    */
-  const callReaction = async ({ description, content }: { description: string, content: string }) => {
+  const callReaction = async ({
+    description,
+    content,
+  }: {
+    description: string;
+    content: string;
+  }) => {
     if (description === "send_mail") {
-      await fetch("localhost:3000/api/reactions/send_mail", {
+      await fetch("http://localhost:3000/api/reactions/send_mail", {
         method: "POST",
         body: content,
       });
     }
     if (description === "skip_music") {
-      console.log("skip_music")
-      const token = "AQCKu3LtlFO58WN_yRaLtbW-rDptEX4755g425LTp7r_XY-8GSMV8fzDvBCjyHbI7pbqDsvyF_XO5gK0Uoi9O-wGZlBGrZgBwcbNBXGlK5ziWeRNEuXNZ9NhVR45MxnfsExACxU74wrPLsnu-1qr131QjGVIE5qOXreTd1H0Ken9UkoJnk7tjY4RQbcoQqwGKW3vRo_j88I00C2zZwF5AIW1VfhEd7oitX21r8RmCdaUobCggzAv8A"
-      const response = await fetch("https://api.spotify.com/v1/me/player/next", {
+      console.log("skip_music");
+      const token =
+        "AQCKu3LtlFO58WN_yRaLtbW-rDptEX4755g425LTp7r_XY-8GSMV8fzDvBCjyHbI7pbqDsvyF_XO5gK0Uoi9O-wGZlBGrZgBwcbNBXGlK5ziWeRNEuXNZ9NhVR45MxnfsExACxU74wrPLsnu-1qr131QjGVIE5qOXreTd1H0Ken9UkoJnk7tjY4RQbcoQqwGKW3vRo_j88I00C2zZwF5AIW1VfhEd7oitX21r8RmCdaUobCggzAv8A";
+      await fetch("https://api.spotify.com/v1/me/player/next", {
         method: "POST",
         headers: {
-          "Authorization": "Bearer " + token,
+          Authorization: "Bearer " + token,
         },
       });
     }
-  }
+  };
 
   /**
    * check which action is on the website and launch them if they are on it
@@ -175,58 +180,60 @@ const Applications = () => {
   const LaunchActions = ({ applications }: { applications: Application[] }) => {
     applications.forEach(async (app, _appIndex) => {
       if (app.descriptions[0] == "emoji-github") {
-        const emoji = await fetch("localhost:3000/api/actions/github/emoji");
+        const emoji = await fetch(
+          "http://localhost:3000/api/actions/github/emoji"
+        );
         const text = await emoji.text();
         callReaction({ description: app.descriptions[1], content: text });
       }
       if (app.descriptions[0] == "60s") {
         if (app.data[0] == "false") {
-        app.data[0] = "true";
-        setTimeout(() => {
-          app.data[0] = "false";
-          callReaction({ description: app.descriptions[1], content: "" });
-          console.log("60s");
-        }, 60000);
+          app.data[0] = "true";
+          setTimeout(() => {
+            app.data[0] = "false";
+            callReaction({ description: app.descriptions[1], content: "" });
+            console.log("60s");
+          }, 60000);
         }
       }
       if (app.descriptions[0] == "10min") {
         if (app.data[0] == "false") {
-        app.data[0] = "true";
-        setTimeout(() => {
-          app.data[0] = "false";
-          callReaction({ description: app.descriptions[1], content: "" });
-          console.log("10min");
-        }, 600000);
+          app.data[0] = "true";
+          setTimeout(() => {
+            app.data[0] = "false";
+            callReaction({ description: app.descriptions[1], content: "" });
+            console.log("10min");
+          }, 600000);
         }
       }
       if (app.descriptions[0] == "30min") {
         if (app.data[0] == "false") {
-        app.data[0] = "true";
-        setTimeout(() => {
-          app.data[0] = "false";
-          callReaction({ description: app.descriptions[1], content: "" });
-          console.log("30min");
-        }, 1800000);
+          app.data[0] = "true";
+          setTimeout(() => {
+            app.data[0] = "false";
+            callReaction({ description: app.descriptions[1], content: "" });
+            console.log("30min");
+          }, 1800000);
         }
       }
       if (app.descriptions[0] == "1h") {
         if (app.data[0] == "false") {
-        app.data[0] = "true";
-        setTimeout(() => {
-          app.data[0] = "false";
-          callReaction({ description: app.descriptions[1], content: "" });
-          console.log("1h");
-        }, 3600000);
+          app.data[0] = "true";
+          setTimeout(() => {
+            app.data[0] = "false";
+            callReaction({ description: app.descriptions[1], content: "" });
+            console.log("1h");
+          }, 3600000);
         }
       }
       if (app.descriptions[0] == "24h") {
         if (app.data[0] == "false") {
-        app.data[0] = "true";
-        setTimeout(() => {
-          app.data[0] = "false";
-          callReaction({ description: app.descriptions[1], content: "" });
-          console.log("24h");
-        }, 86400000);
+          app.data[0] = "true";
+          setTimeout(() => {
+            app.data[0] = "false";
+            callReaction({ description: app.descriptions[1], content: "" });
+            console.log("24h");
+          }, 86400000);
         }
       }
     });
@@ -276,8 +283,8 @@ const Box = ({
 
   /**
    * select the service
-   * @param service 
-   * @param windowIndex 
+   * @param service
+   * @param windowIndex
    */
   const handleServiceSelection = (service: string, windowIndex: number) => {
     const updatedServices = [...selectedServices];
@@ -287,8 +294,8 @@ const Box = ({
 
   /**
    * submit the action reaction selection
-   * @param value 
-   * @param index 
+   * @param value
+   * @param index
    */
   const handleSubmitValue = (value: string, index: number) => {
     const updatedSubmittedValues = [...submittedValues];
@@ -331,7 +338,7 @@ const Box = ({
 
   /**
    * this function is called when the user submit the Action/Reaction
-   * @param event 
+   * @param event
    */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -402,7 +409,14 @@ const Box = ({
     setDataValues(Array.from({ length: 2 }, () => ""));
   };
 
-  const services = ["google", "discord", "spotify", "github", "microsoft", "timer"];
+  const services = [
+    "google",
+    "discord",
+    "spotify",
+    "github",
+    "microsoft",
+    "timer",
+  ];
 
   return (
     <div
@@ -468,8 +482,8 @@ const Box = ({
 
 /**
  * All action reaction that can be selected
- * @param selectedService 
- * @returns 
+ * @param selectedService
+ * @returns
  */
 const getServiceInfo = (selectedService: string | null) => {
   switch (selectedService) {
@@ -484,7 +498,10 @@ const getServiceInfo = (selectedService: string | null) => {
     case "microsoft":
       return { options: ["13", "14", "15"], reactions: ["microsoft"] };
     case "timer":
-      return { options: ["60s", "10min", "30min", "1h", "24h"], reactions: ["None"]};
+      return {
+        options: ["60s", "10min", "30min", "1h", "24h"],
+        reactions: ["None"],
+      };
     default:
       return { options: [], reactions: [] };
   }
