@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getSession } from "@/auth/lucia";
 import { client } from "@/auth/lucia";
 import type { NextRequest } from "next/server";
+import { date } from "zod";
 
 
 /**
@@ -16,6 +17,7 @@ const Applications = () => {
     {
       names: ["Action Service", "Reaction Service"],
       descriptions: ["Nom action", "Nom réaction"],
+      data: ["", ""],
     },
   ]);
 
@@ -139,6 +141,7 @@ const Applications = () => {
   type Application = {
     names: string[];
     descriptions: string[];
+    data: string[];
   };
   
   /**
@@ -153,9 +156,18 @@ const Applications = () => {
         body: content,
       });
     }
+    if (description === "skip_music") {
+      console.log("skip_music")
+      const token = "AQCKu3LtlFO58WN_yRaLtbW-rDptEX4755g425LTp7r_XY-8GSMV8fzDvBCjyHbI7pbqDsvyF_XO5gK0Uoi9O-wGZlBGrZgBwcbNBXGlK5ziWeRNEuXNZ9NhVR45MxnfsExACxU74wrPLsnu-1qr131QjGVIE5qOXreTd1H0Ken9UkoJnk7tjY4RQbcoQqwGKW3vRo_j88I00C2zZwF5AIW1VfhEd7oitX21r8RmCdaUobCggzAv8A"
+      const response = await fetch("https://api.spotify.com/v1/me/player/next", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + token,
+        },
+      });
+    }
   }
-  
-  
+
   /**
    * check which action is on the website and launch them if they are on it
    * @param applications is the list of all the Action with their associed Reaction
@@ -166,6 +178,56 @@ const Applications = () => {
         const emoji = await fetch("localhost:3000/api/actions/github/emoji");
         const text = await emoji.text();
         callReaction({ description: app.descriptions[1], content: text });
+      }
+      if (app.descriptions[0] == "60s") {
+        if (app.data[0] == "false") {
+        app.data[0] = "true";
+        setTimeout(() => {
+          app.data[0] = "false";
+          callReaction({ description: app.descriptions[1], content: "" });
+          console.log("60s");
+        }, 60000);
+        }
+      }
+      if (app.descriptions[0] == "10min") {
+        if (app.data[0] == "false") {
+        app.data[0] = "true";
+        setTimeout(() => {
+          app.data[0] = "false";
+          callReaction({ description: app.descriptions[1], content: "" });
+          console.log("10min");
+        }, 600000);
+        }
+      }
+      if (app.descriptions[0] == "30min") {
+        if (app.data[0] == "false") {
+        app.data[0] = "true";
+        setTimeout(() => {
+          app.data[0] = "false";
+          callReaction({ description: app.descriptions[1], content: "" });
+          console.log("30min");
+        }, 1800000);
+        }
+      }
+      if (app.descriptions[0] == "1h") {
+        if (app.data[0] == "false") {
+        app.data[0] = "true";
+        setTimeout(() => {
+          app.data[0] = "false";
+          callReaction({ description: app.descriptions[1], content: "" });
+          console.log("1h");
+        }, 3600000);
+        }
+      }
+      if (app.descriptions[0] == "24h") {
+        if (app.data[0] == "false") {
+        app.data[0] = "true";
+        setTimeout(() => {
+          app.data[0] = "false";
+          callReaction({ description: app.descriptions[1], content: "" });
+          console.log("24h");
+        }, 86400000);
+        }
       }
     });
   };
@@ -208,6 +270,9 @@ const Box = ({
   const [submittedValues, setSubmittedValues] = useState<string[]>(
     Array.from({ length: 2 }, () => "")
   );
+  const [dataValues, setDataValues] = useState<string[]>(
+    Array.from({ length: 2 }, () => "")
+  );
 
   /**
    * select the service
@@ -229,6 +294,9 @@ const Box = ({
     const updatedSubmittedValues = [...submittedValues];
     updatedSubmittedValues[index] = value;
     setSubmittedValues(updatedSubmittedValues);
+    const updatedDataValues = [...dataValues];
+    updatedDataValues[index] = value;
+    setDataValues(updatedDataValues);
   };
 
   /**
@@ -242,7 +310,9 @@ const Box = ({
     name1: string,
     name2: string,
     submitted1: string,
-    submitted2: string
+    submitted2: string,
+    data1: string,
+    data2: string
   ) => {
     name1 = "Action: " + name1;
     name2 = "Reaction: " + name2;
@@ -250,6 +320,7 @@ const Box = ({
     const newApplication = {
       names: [name1, name2],
       descriptions: [submitted1, submitted2],
+      data: [data1, data2],
     };
 
     setApplications((prevApplications: any) => [
@@ -269,6 +340,8 @@ const Box = ({
     var name2 = selectedServices[1] !== null ? selectedServices[1] : "";
     var submitted1 = submittedValues[0] !== undefined ? submittedValues[0] : "";
     var submitted2 = submittedValues[1] !== undefined ? submittedValues[1] : "";
+    var data1 = dataValues[0] !== undefined ? dataValues[0] : "";
+    var data2 = dataValues[1] !== undefined ? dataValues[1] : "";
 
     if (submitted1 === "") {
       if (name1 === "discord") {
@@ -278,13 +351,16 @@ const Box = ({
         submitted1 = "1";
       }
       if (name1 === "spotify") {
-        submitted1 = "7";
+        submitted1 = "2";
       }
       if (name1 === "github") {
         submitted1 = "emoji-github";
       }
       if (name1 === "microsoft") {
         submitted1 = "13";
+      }
+      if (name1 === "timer") {
+        submitted1 = "60s";
       }
     }
 
@@ -296,7 +372,7 @@ const Box = ({
         submitted2 = "1";
       }
       if (name2 === "spotify") {
-        submitted2 = "7";
+        submitted2 = "skip_music";
       }
       if (name2 === "github") {
         submitted2 = "11";
@@ -304,9 +380,15 @@ const Box = ({
       if (name2 === "microsoft") {
         submitted2 = "13";
       }
+      if (name2 === "timer") {
+        submitted2 = "None";
+      }
     }
 
-    createApplication(name1, name2, submitted1, submitted2);
+    if (name1 === "timer") {
+      data1 = "false";
+    }
+    createApplication(name1, name2, submitted1, submitted2, data1, data2);
     handleCloseWindow();
   };
 
@@ -317,9 +399,10 @@ const Box = ({
     setShowWindows(0);
     setSelectedServices([null, null]);
     setSubmittedValues(Array.from({ length: 2 }, () => ""));
+    setDataValues(Array.from({ length: 2 }, () => ""));
   };
 
-  const services = ["google", "discord", "spotify", "github", "microsoft"];
+  const services = ["google", "discord", "spotify", "github", "microsoft", "timer"];
 
   return (
     <div
@@ -395,11 +478,13 @@ const getServiceInfo = (selectedService: string | null) => {
     case "discord":
       return { options: ["4", "5", "6"], reactions: ["discord"] };
     case "spotify":
-      return { options: ["7", "8", "9"], reactions: ["google"] };
+      return { options: ["7", "8", "9"], reactions: ["skip_music"] };
     case "github":
       return { options: ["emoji-github", "11", "12"], reactions: ["github"] };
     case "microsoft":
       return { options: ["13", "14", "15"], reactions: ["microsoft"] };
+    case "timer":
+      return { options: ["60s", "10min", "30min", "1h", "24h"], reactions: ["None"]};
     default:
       return { options: [], reactions: [] };
   }
