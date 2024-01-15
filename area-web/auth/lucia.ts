@@ -86,7 +86,7 @@ export const spotifyAuth = spotify(auth, {
   clientId: process.env.SPOTIFY_CLIENT_ID ?? "",
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET ?? "",
   redirectUri: process.env.SPOTIFY_REDIRECT_URI ?? "",
-  scope: ["user-read-email", "user-read-private"],
+  scope: ["user-read-email", "user-read-private", "user-modify-playback-state"],
 });
 
 export const slackAuth = slack(auth, {

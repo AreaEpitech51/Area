@@ -481,15 +481,15 @@ const Box = ({
 const getServiceInfo = (selectedService: string | null) => {
   switch (selectedService) {
     case "google":
-      return { options: ["1", "2", "3"], reactions: ["google"] };
+      return { options: ["None"], reactions: ["None"] };
     case "discord":
-      return { options: ["4", "5", "6"], reactions: ["discord"] };
+      return { options: ["None"], reactions: ["None"] };
     case "spotify":
-      return { options: ["7", "8", "9"], reactions: ["skip_music"] };
+      return { options: ["None"], reactions: ["skip_music"] };
     case "github":
-      return { options: ["emoji-github", "11", "12"], reactions: ["github"] };
+      return { options: ["emoji-github"], reactions: ["None"] };
     case "microsoft":
-      return { options: ["13", "14", "15"], reactions: ["microsoft"] };
+      return { options: ["None"], reactions: ["None"] };
     case "timer":
       return {
         options: ["60s", "10min", "30min", "1h", "24h"],
