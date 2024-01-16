@@ -131,7 +131,7 @@ const Applications = () => {
       return () => {
         clearInterval(intervalId);
       };
-    }, []);
+    });
 
     return <div></div>;
   };

@@ -17,7 +17,7 @@ const Page = async () => {
     <body style={styles.page}>
       <header style={styles.header}>
         <h1 style={styles.title}>Area51</h1>
-        <p style={styles.subtitle}>L'automatisation sans limites!</p>
+        <p style={styles.subtitle}>L&apos;automatisation sans limites!</p>
       </header>
 
       <section style={styles.profileSection}>

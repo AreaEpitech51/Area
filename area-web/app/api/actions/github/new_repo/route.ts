@@ -2,7 +2,7 @@ import { client, getPageSession } from "@/auth/lucia";
 import { redirect } from "next/navigation";
 import { Octokit } from "octokit";
 
-import type { NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 type Repo = {
   name: string;
@@ -51,10 +51,8 @@ export const GET = async (_request: NextRequest) => {
     console.log("no new repo");
     return redirect("/api/actions/github/new_repo");
   }
-  return {
-    status: 200,
-    body: {
-      message: "You have created a new repo in the last 24 hours",
-    },
-  };
+
+  return NextResponse.json({
+    message: "You have created a new repo in the last 24 hours",
+  });
 };

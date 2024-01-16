@@ -3,8 +3,8 @@ import Link from "next/link";
 import { getPageSession } from "@/auth/lucia";
 import { redirect } from "next/navigation";
 import Image from "next/image";
-import MicrosoftLogo from "assets/Microsoft_icon.png";
-import GithubLogo from "assets/GitHub_icon.png";
+import MicrosoftLogo from "@/assets/Microsoft_icon.png";
+import GithubLogo from "@/assets/GitHub_icon.png";
 
 const LoginPage = async () => {
   const session = await getPageSession();
