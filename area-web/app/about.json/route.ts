@@ -1,6 +1,6 @@
-import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-export const GET = async (request: NextRequest) => {
+export const GET = async () => {
   const date = new Date();
   const res = {
     client: {
@@ -49,9 +49,5 @@ export const GET = async (request: NextRequest) => {
       ],
     },
   };
-  return new Response(JSON.stringify(res), {
-    headers: {
-      "content-type": "application/json; charset=UTF-8",
-    },
-  });
+  return NextResponse.json(res);
 };
