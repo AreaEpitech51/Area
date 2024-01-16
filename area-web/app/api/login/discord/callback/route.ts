@@ -1,4 +1,4 @@
-import { getSession } from "@/auth/lucia";
+import { getPageSession } from "@/auth/lucia";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { client } from "@/auth/lucia";
@@ -6,7 +6,7 @@ import { client } from "@/auth/lucia";
 import type { NextRequest } from "next/server";
 
 export const GET = async (request: NextRequest) => {
-  const session = await getSession(request);
+  const session = await getPageSession();
   if (!session) return redirect("/");
   const storedState = cookies().get("discord_oauth_state")?.value;
   const url = new URL(request.url);
